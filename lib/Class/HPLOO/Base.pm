@@ -55,7 +55,7 @@ sub SUPER {
 
   unshift(@_ , $prev_pack) if ( $sub_is_new_hploo && $prev_pack && ((!ref($_[0]) && $_[0] ne $prev_pack && !UNIVERSAL::isa($_[0] , $prev_pack)) || (ref($_[0]) && !UNIVERSAL::isa($_[0] , $prev_pack)) ) ) ;
 
-  if ( defined @{"$pack\::ISA"} ) {
+  if ( @{"$pack\::ISA"} ) {
     my $isa_sub = ISA_FIND_NEW($pack, ($sub_is_new_hploo?'new':$sub) ,1) ;
 
     my ($sub_name) = ( $isa_sub =~ /(\w+)$/gi );
@@ -163,7 +163,7 @@ sub new_call_BEGIN {
   
   foreach my $isas_i ( @isas ) {
     foreach my $ISA_i ( @$isas_i ) {
-      if ( defined @{"$ISA_i\::ISA"} && @{"$ISA_i\::ISA"} > 2 ) {
+      if ( @{"$ISA_i\::ISA"} && @{"$ISA_i\::ISA"} > 2 ) {
         push(@isas , \@{"$ISA_i\::ISA"}) ;
       }
       last if $ISA_i eq 'Class::HPLOO::Base' ;
@@ -189,7 +189,7 @@ sub new_call_END {
   
   foreach my $isas_i ( @isas ) {
     foreach my $ISA_i ( @$isas_i ) {
-      if ( defined @{"$ISA_i\::ISA"} && @{"$ISA_i\::ISA"} > 2 ) {
+      if ( @{"$ISA_i\::ISA"} && @{"$ISA_i\::ISA"} > 2 ) {
         push(@isas , \@{"$ISA_i\::ISA"}) ;
       }
       last if $ISA_i eq 'Class::HPLOO::Base' ;

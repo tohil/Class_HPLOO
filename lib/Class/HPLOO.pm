@@ -50,7 +50,7 @@ if (!$LOADED) {
     
       unshift(@_ , $prev_pack) if ( $sub_is_new_hploo && $prev_pack && ((!ref($_[0]) && $_[0] ne $prev_pack && !UNIVERSAL::isa($_[0] , $prev_pack)) || (ref($_[0]) && !UNIVERSAL::isa($_[0] , $prev_pack)) ) ) ;
     
-      if ( defined @{"$pack\::ISA"} ) {
+      if ( @{"$pack\::ISA"} ) {
         my $isa_sub = ISA_FIND_NEW($pack, ($sub_is_new_hploo?'new':$sub) ,1) ;
         my ($sub_name) = ( $isa_sub =~ /(\w+)$/gi );
         if ( $sub0 ne $isa_sub && !ref($_[0]) && $isa_sub =~ /^(.*?(?:::)?$sub_name)\::$sub_name$/ ) {
@@ -1069,7 +1069,7 @@ sub build_class {
 sub format_nice_sub {
   my $sub = shift ;
   if ( !$sub ) { return $sub ;}
-  $sub =~ s/({\s+)/$1\n$FIRST_SUB_IDENT  /s ;
+  $sub =~ s/(\{\s+)/$1\n$FIRST_SUB_IDENT  /s ;
   $sub =~ s/(\s*;)\s*/$1\n$FIRST_SUB_IDENT  /gs ;
   $sub =~ s/^(\s*)/$1\n$FIRST_SUB_IDENT/gs ;
   $sub =~ s/\s+$//gs ;
